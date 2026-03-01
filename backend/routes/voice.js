@@ -343,7 +343,7 @@ router.post('/process-ai', async (req, res) => {
                     {
                         inputs: [finalText],
                         target_language_code: bulbulLang,
-                        speaker: 'anushka',  // Anushka: warm, empathetic Indian female voice
+                        speaker: 'priya',  // Valid bulbul:v3 speakers: aditya, ritu, ashutosh, priya, neha, rahul, pooja, rohan, simran, kavya, amit, dev
                         model: 'bulbul:v3'
                     },
                     {
