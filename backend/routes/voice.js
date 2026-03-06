@@ -408,7 +408,7 @@ router.post('/process-ai', async (req, res) => {
                     $set: { updated_at: new Date() },
                     $setOnInsert: { created_at: new Date() }
                 },
-                { upsert: true, new: true }
+                { upsert: true, returnDocument: 'after' }
             );
             console.log(`💾 Saved! User: ${callerPhone} | Language: ${detectedLangCode}`);
         } catch (dbErr) {
