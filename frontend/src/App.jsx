@@ -8,7 +8,6 @@ import {
   BookOpen,
   Users,
   ArrowRight,
-  Play,
   ShieldCheck,
   Activity,
   MessageCircle,
@@ -52,7 +51,7 @@ const Navbar = ({ onAuthClick, user, onLogout, onContactClick, contactLoading, s
           <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary)', fontFamily: 'Outfit' }}>Janani</span>
         </ScrollLink>
         <div className="nav-links" style={{ display: 'flex', gap: '2rem' }}>
-          {['Home', 'Demo', 'Mission'].map((item) => (
+          {['Home', 'Care', 'Mission'].map((item) => (
             <ScrollLink
               key={item}
               to={item.toLowerCase()}
@@ -280,9 +279,9 @@ const Hero = ({ onAuthClick, user, setView }) => {
   );
 };
 
-const DemoSection = () => {
+const CareSection = () => {
   return (
-    <Element name="demo">
+    <Element name="care">
       <section style={{ background: '#fff' }}>
         <div className="container text-center" style={{ textAlign: 'center' }}>
           <Motion.div
@@ -307,42 +306,15 @@ const DemoSection = () => {
               position: 'relative',
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
             }}>
-              {/* Mock Video Player */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                background: 'linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3))'
-              }}>
-                <Motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={{
-                    cursor: 'pointer',
-                    width: '80px',
-                    height: '80px',
-                    borderRadius: '50%',
-                    background: 'white',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: '1.5rem'
-                  }}
-                >
-                  <Play fill="black" size={32} style={{ marginLeft: '5px' }} />
-                </Motion.div>
-                <div style={{ color: 'white', fontSize: '1.2rem', fontWeight: '500' }}>Demo Video: Voice-Based Tracking</div>
-              </div>
-              <img
-                src="https://images.unsplash.com/photo-1584362946444-1e7c4f440e91?auto=format&fit=crop&q=80&w=1000"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }}
-                alt="Demo Preview"
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/_dVuHFdUN0c"
+                title="Care Video: Voice-Based Tracking"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
               />
             </div>
           </Motion.div>
@@ -1487,7 +1459,7 @@ function App() {
         {view === 'landing' ? (
           <Motion.div key="landing">
             <Hero onAuthClick={() => setShowAuth(true)} user={user} setView={setView} />
-            <DemoSection />
+            <CareSection />
             <MainContent assistantRef={assistantRef} user={user} />
           </Motion.div>
         ) : (

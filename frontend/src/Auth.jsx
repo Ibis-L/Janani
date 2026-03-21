@@ -45,7 +45,7 @@ const Auth = ({ onClose, onAuthSuccess }) => {
             };
 
         try {
-            // For hackathon/demo purposes, if the backend on 5000 isn't available, 
+            // For hackathon/care purposes, if the backend on 5000 isn't available, 
             // we'll simulate a successful login/signup for the user.
             let userData;
             try {
@@ -59,7 +59,7 @@ const Auth = ({ onClose, onAuthSuccess }) => {
                 userData = data.user;
                 if (data.token) localStorage.setItem('token', data.token);
             } catch (e) {
-                console.warn("Backend auth failed, using mock data for demo:", e);
+                console.warn("Backend auth failed, using mock data for care:", e);
                 userData = {
                     id: 'mock-id',
                     name: formData.name || 'Pragati',
