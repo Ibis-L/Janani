@@ -21,7 +21,7 @@ class PregnancyRAGService:
         # 1. Initialize LLM (Llama 3 via Groq)
         self.llm = ChatGroq(
             temperature=0.1,
-            model_name="llama-3.3-70b-versatile",  # Same model used across the app; confirmed available on Groq
+            model_name="openai/gpt-oss-20b",  # Fast model for voice RAG
             groq_api_key=os.getenv("GROQ_API_KEY")
         )
 

@@ -68,7 +68,7 @@ Return ONLY valid JSON:
         const response = await axios.post(
             'https://api.groq.com/openai/v1/chat/completions',
             {
-                model: 'llama-3.3-70b-versatile',
+                model: 'openai/gpt-oss-20b',
                 messages: [
                     { role: 'system', content: prompt },
                     { role: 'user', content: `Generate the ${summaryType} summary now.` }
