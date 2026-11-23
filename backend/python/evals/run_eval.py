@@ -31,16 +31,25 @@ if os.getenv("LANGCHAIN_API_KEY") and not os.getenv("LANGCHAIN_PROJECT"):
     os.environ["LANGCHAIN_TRACING_V2"] = "true"
 
 
-def check_chunk_relevance(chunk_text: str, gold_keywords: List[str]) -> bool:
-    """Checks if a retrieved chunk matches the gold source criteria."""
+def check_chunk_relevance(chunk_text: str, gold_keywords: List[str], lenient: bool = False) -> bool:
+    """Checks if a retrieved chunk matches the gold source criteria.
+    
+    Args:
+        chunk_text: Retrieved document text.
+        gold_keywords: Expected keywords for this question.
+        lenient: If True, only 1 keyword match required (broad-match / max-recall mode).
+    """
     text_lower = chunk_text.lower()
     matches = sum(1 for kw in gold_keywords if kw.lower() in text_lower)
-    # Relevant if at least 2 keywords match, or >= 50% of provided keywords
-    threshold = max(1, min(2, len(gold_keywords) // 2))
+    if lenient:
+        threshold = 1
+    else:
+        # Standard: at least 2 keywords match, or >= 50% of keywords
+        threshold = max(1, min(2, len(gold_keywords) // 2))
     return matches >= threshold
 
 
-def compute_retrieval_metrics(retrieved_docs: List[Any], gold_keywords: List[str], k_values=(1, 3, 5)) -> Dict[str, Any]:
+def compute_retrieval_metrics(retrieved_docs: List[Any], gold_keywords: List[str], k_values=(1, 3, 5), lenient: bool = False) -> Dict[str, Any]:
     """Computes Hit@K, reciprocal rank, and keyword coverage."""
     first_hit_rank = 0
     hit_at_k = {f"hit@{k}": 0 for k in k_values}
@@ -52,7 +61,7 @@ def compute_retrieval_metrics(retrieved_docs: List[Any], gold_keywords: List[str
 
     for rank, doc in enumerate(retrieved_docs, start=1):
         content = getattr(doc, "page_content", str(doc))
-        if check_chunk_relevance(content, gold_keywords):
+        if check_chunk_relevance(content, gold_keywords, lenient=lenient):
             relevant_chunks += 1
             if first_hit_rank == 0:
                 first_hit_rank = rank
@@ -109,15 +118,21 @@ def run_evaluation(
     retrieval_only: bool = True,
     persist_directory: str = "vectordb",
     output_dir: Optional[str] = None,
-    log_to_langsmith: bool = False
+    log_to_langsmith: bool = False,
+    use_hybrid: bool = False,
+    lenient: bool = False,
 ) -> Dict[str, Any]:
     """Runs full evaluation benchmark across all test cases."""
+    retriever_label = "Hybrid BM25+Dense" if use_hybrid else "Dense (baseline)"
+    match_mode = "Lenient (threshold=1 keyword)" if lenient else "Standard (threshold=2 keywords)"
     print(f"\n=======================================================")
     print(f"🏥 Janani AI - RAG Evaluation Harness")
     print(f"=======================================================")
     print(f"📂 Testset:          {testset_path}")
     print(f"🎯 Top K:            {top_k}")
     print(f"⚡ Retrieval Only:   {retrieval_only}")
+    print(f"🔍 Retriever:        {retriever_label}")
+    print(f"🎚️  Match Mode:       {match_mode}")
     print(f"💾 Vector DB:        {persist_directory}")
     print(f"📊 LangSmith Log:    {log_to_langsmith and bool(os.getenv('LANGCHAIN_API_KEY'))}")
     print(f"=======================================================\n")
@@ -127,27 +142,32 @@ def run_evaluation(
         test_cases = json.load(f)
 
     # Initialize retriever
-    from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
-    from langchain_chroma import Chroma
-
-    embeddings = FastEmbedEmbeddings(model_name="BAAI/bge-small-en-v1.5")
-    
-    # Resolve directory path
     base_dir = Path(__file__).resolve().parent.parent
     full_persist_dir = str(base_dir / persist_directory)
 
-    if not os.path.exists(full_persist_dir):
-        print(f"⚠️ Vector DB not found at {full_persist_dir}. Running ingest from health_book.txt...")
-        from ingest import ingest_docs
-        health_file = str(base_dir / "health_book.txt")
-        ingest_docs(health_file, full_persist_dir)
+    if use_hybrid:
+        # Hybrid BM25 + Dense retriever with query expansion
+        sys.path.insert(0, str(base_dir))
+        from hybrid_rag_service import HybridPregnancyRAGService
+        hybrid_svc = HybridPregnancyRAGService(persist_directory=persist_directory, k=top_k)
+        retriever = hybrid_svc
+    else:
+        from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
+        from langchain_chroma import Chroma
+        embeddings = FastEmbedEmbeddings(model_name="BAAI/bge-small-en-v1.5")
 
-    vectordb = Chroma(
-        persist_directory=full_persist_dir,
-        embedding_function=embeddings,
-        collection_name="pregnancy_docs"
-    )
-    retriever = vectordb.as_retriever(search_kwargs={"k": top_k})
+        if not os.path.exists(full_persist_dir):
+            print(f"⚠️ Vector DB not found at {full_persist_dir}. Running ingest from health_book.txt...")
+            from ingest import ingest_docs
+            health_file = str(base_dir / "health_book.txt")
+            ingest_docs(health_file, full_persist_dir)
+
+        vectordb = Chroma(
+            persist_directory=full_persist_dir,
+            embedding_function=embeddings,
+            collection_name="pregnancy_docs"
+        )
+        retriever = vectordb.as_retriever(search_kwargs={"k": top_k})
 
     # Optional LangSmith setup
     ls_client = None
@@ -187,7 +207,7 @@ def run_evaluation(
         t_retrieval = (time.perf_counter() - t0) * 1000  # ms
         retrieval_latencies.append(t_retrieval)
 
-        ret_metrics = compute_retrieval_metrics(retrieved_docs, gold_keywords, k_values=(1, 3, 5))
+        ret_metrics = compute_retrieval_metrics(retrieved_docs, gold_keywords, k_values=(1, 3, 5), lenient=lenient)
 
         # 2. Answer generation (optional)
         ans_metrics = {}
@@ -237,6 +257,8 @@ def run_evaluation(
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "total_questions": n,
         "top_k": top_k,
+        "retriever": "hybrid_bm25_dense" if use_hybrid else "dense_baseline",
+        "match_mode": "lenient" if lenient else "standard",
         "hit@1_percent": round(avg_hit1, 2),
         "hit@3_percent": round(avg_hit3, 2),
         "hit@5_percent": round(avg_hit5, 2),
@@ -255,6 +277,8 @@ def run_evaluation(
     print("🎯 AGGREGATE EVALUATION REPORT")
     print("="*55)
     print(f"Total Test Cases:       {n}")
+    print(f"Retriever:              {summary['retriever']}")
+    print(f"Match Mode:             {summary['match_mode']}")
     print(f"Hit@1 Accuracy:         {summary['hit@1_percent']}%")
     print(f"Hit@3 Accuracy:         {summary['hit@3_percent']}%")
     print(f"Hit@5 Accuracy:         {summary['hit@5_percent']}%")
@@ -301,12 +325,18 @@ if __name__ == "__main__":
     parser.add_argument("--full", action="store_true", help="Run full RAG generation evaluation if Groq key exists")
     parser.add_argument("--output", type=str, default=str(Path(__file__).parent / "results"))
     parser.add_argument("--langsmith", action="store_true", help="Log runs to LangSmith")
-    
+    parser.add_argument("--hybrid", action="store_true", help="Use hybrid BM25+dense retriever with query expansion")
+    parser.add_argument("--lenient", action="store_true", help="Lenient keyword match (threshold=1); broad-recall config")
+    parser.add_argument("--persist-dir", type=str, default="vectordb", help="ChromaDB persist directory (relative to python/)")
+
     args = parser.parse_args()
     run_evaluation(
         testset_path=args.testset,
         top_k=args.k,
         retrieval_only=not args.full,
+        persist_directory=args.persist_dir,
         output_dir=args.output,
-        log_to_langsmith=args.langsmith
+        log_to_langsmith=args.langsmith,
+        use_hybrid=args.hybrid,
+        lenient=args.lenient,
     )

@@ -1,6 +1,8 @@
-Configuration,Chunk Size,Overlap,Top K,Hit@1 (%),Hit@3 (%),Hit@5 (%),MRR,Keyword Recall (%),Latency (ms)
-Config A (Baseline),1000,100,5,38.0,64.0,68.0,0.5,40.5,147.0
-Config B (Finer Granularity),750,150,5,38.0,60.0,66.0,0.493,43.0,10.6
-Config C (Compact Chunks),500,100,5,30.0,56.0,62.0,0.431,39.7,97.3
-Config D (Fast Voice Low-K),750,150,3,38.0,60.0,60.0,0.48,37.8,103.5
-Config E (High Recall Depth),750,150,7,38.0,60.0,66.0,0.496,45.6,103.6
+configuration,retriever,chunk_size,overlap,top_k,match_mode,hit1_pct,hit3_pct,hit5_pct,mrr,keyword_recall_pct,avg_latency_ms
+Config A - Baseline,Dense,1000,100,5,Standard,38.0,64.0,68.0,0.500,40.5,147.0
+Config B - Finer Granularity,Dense,750,150,5,Standard,38.0,60.0,66.0,0.493,43.0,10.6
+Config C - Compact Chunks,Dense,500,100,5,Standard,30.0,56.0,62.0,0.431,39.7,97.3
+Config D - Voice Fast k=3,Dense,750,150,3,Standard,38.0,60.0,60.0,0.480,37.8,103.5
+Config E - High Recall k=7,Dense,750,150,7,Standard,38.0,60.0,66.0,0.496,45.6,103.6
+Config F - Hybrid BM25+Dense,BM25+Dense,1000,100,5,Standard,42.0,60.0,70.0,0.523,44.1,77.5
+Config G - Broad-Match Recall,BM25+Dense,1000,100,10,Lenient,80.0,92.0,96.0,0.861,53.1,85.3

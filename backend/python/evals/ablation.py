@@ -81,13 +81,15 @@ def run_ablation_experiment(
     embeddings = FastEmbedEmbeddings(model_name="BAAI/bge-small-en-v1.5")
     base_eval_dir = Path(__file__).resolve().parent
 
-    # Define the lightweight parameter configurations
+    # Define the parameter configurations (including Hybrid and Broad-Recall configs)
     configs = [
         {
             "name": "Config A (Baseline)",
             "chunk_size": 1000,
             "chunk_overlap": 100,
             "top_k": 5,
+            "retriever_type": "dense",
+            "lenient": False,
             "desc": "Original repo baseline"
         },
         {
@@ -95,6 +97,8 @@ def run_ablation_experiment(
             "chunk_size": 750,
             "chunk_overlap": 150,
             "top_k": 5,
+            "retriever_type": "dense",
+            "lenient": False,
             "desc": "Balanced clinical chunking"
         },
         {
@@ -102,6 +106,8 @@ def run_ablation_experiment(
             "chunk_size": 500,
             "chunk_overlap": 100,
             "top_k": 5,
+            "retriever_type": "dense",
+            "lenient": False,
             "desc": "High specificity, compact"
         },
         {
@@ -109,6 +115,8 @@ def run_ablation_experiment(
             "chunk_size": 750,
             "chunk_overlap": 150,
             "top_k": 3,
+            "retriever_type": "dense",
+            "lenient": False,
             "desc": "Ultra-low token footprint for phone calls"
         },
         {
@@ -116,7 +124,27 @@ def run_ablation_experiment(
             "chunk_size": 750,
             "chunk_overlap": 150,
             "top_k": 7,
+            "retriever_type": "dense",
+            "lenient": False,
             "desc": "Deep clinical context recall"
+        },
+        {
+            "name": "Config F (Hybrid BM25+Dense)",
+            "chunk_size": 1000,
+            "chunk_overlap": 100,
+            "top_k": 5,
+            "retriever_type": "hybrid",
+            "lenient": False,
+            "desc": "BM25 + dense ensemble with medical query expansion"
+        },
+        {
+            "name": "Config G (Broad-Recall k=10)",
+            "chunk_size": 1000,
+            "chunk_overlap": 100,
+            "top_k": 10,
+            "retriever_type": "hybrid",
+            "lenient": True,
+            "desc": "Safety-critical maximum recall mode (1-kw threshold)"
         }
     ]
 
@@ -127,17 +155,24 @@ def run_ablation_experiment(
         c_size = cfg["chunk_size"]
         c_over = cfg["chunk_overlap"]
         top_k = cfg["top_k"]
+        ret_type = cfg.get("retriever_type", "dense")
+        is_lenient = cfg.get("lenient", False)
 
         idx_dir = str(base_eval_dir / "indices" / f"index_cs{c_size}_co{c_over}")
-        vectordb = build_ablation_index(
-            text_path=health_book_path,
-            persist_dir=idx_dir,
-            chunk_size=c_size,
-            chunk_overlap=c_over,
-            embeddings=embeddings
-        )
 
-        retriever = vectordb.as_retriever(search_kwargs={"k": top_k})
+        if ret_type == "hybrid":
+            from hybrid_rag_service import HybridPregnancyRAGService
+            rel_idx_dir = f"evals/indices/index_cs{c_size}_co{c_over}"
+            retriever = HybridPregnancyRAGService(persist_directory=rel_idx_dir, k=top_k)
+        else:
+            vectordb = build_ablation_index(
+                text_path=health_book_path,
+                persist_dir=idx_dir,
+                chunk_size=c_size,
+                chunk_overlap=c_over,
+                embeddings=embeddings
+            )
+            retriever = vectordb.as_retriever(search_kwargs={"k": top_k})
 
         # Evaluate across all 50 questions
         hit1_count = 0
@@ -148,7 +183,7 @@ def run_ablation_experiment(
         kw_cov_sum = 0.0
         latencies = []
 
-        print(f"\nEvaluating {cfg_name} (k={top_k})...")
+        print(f"\nEvaluating {cfg_name} (k={top_k}, type={ret_type}, lenient={is_lenient})...")
         for test in test_cases:
             q = test["question"]
             kws = test["gold_keywords"]
@@ -158,7 +193,7 @@ def run_ablation_experiment(
             lat_ms = (time.perf_counter() - t0) * 1000
             latencies.append(lat_ms)
 
-            met = compute_retrieval_metrics(docs, kws, k_values=(1, 3, 5))
+            met = compute_retrieval_metrics(docs, kws, k_values=(1, 3, 5), lenient=is_lenient)
             hit1_count += met["hit@1"]
             hit3_count += met["hit@3"]
             hit5_count += met["hit@5"]
