@@ -1,0 +1,402 @@
+[
+  {
+    "id": 1,
+    "category": "anaemia",
+    "question": "What is the recommended hemoglobin threshold for diagnosing severe anaemia in pregnant women?",
+    "expected_answer": "Hemoglobin level below 7 g/dL is classified as severe anaemia in pregnancy and warrants immediate clinical intervention.",
+    "gold_keywords": ["anaemia", "hemoglobin", "7", "g/dl", "severe"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 2,
+    "category": "anaemia",
+    "question": "What is the first-line oral iron therapy and elemental iron dosage recommended for mild to moderate anaemia?",
+    "expected_answer": "Ferrous sulphate, ferrous fumarate, or ferrous ascorbate providing 100 to 200 mg of elemental iron daily along with folic acid.",
+    "gold_keywords": ["iron", "ferrous", "elemental iron", "folic acid", "mg"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 3,
+    "category": "anaemia",
+    "question": "When is parenteral intravenous iron therapy indicated during pregnancy?",
+    "expected_answer": "Intravenous iron is indicated in moderate to severe anaemia after the first trimester when oral iron is poorly tolerated, non-compliant, or rapid hemoglobin rise is required before delivery.",
+    "gold_keywords": ["parenteral", "intravenous", "iron", "trimester", "tolerance", "sucrose"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 4,
+    "category": "anaemia",
+    "question": "What dietary advice should be given to a pregnant mother to enhance iron absorption?",
+    "expected_answer": "Consume iron-rich foods with Vitamin C (citrus fruits, amla) and avoid tea, coffee, or calcium tablets within two hours of iron intake.",
+    "gold_keywords": ["absorption", "vitamin c", "citrus", "tea", "coffee", "calcium"],
+    "difficulty": "lifestyle"
+  },
+  {
+    "id": 5,
+    "category": "gestational_diabetes",
+    "question": "What are the diagnostic blood glucose cutoffs for Gestational Diabetes Mellitus (GDM) using the DIPSI single-step 75g oral glucose test?",
+    "expected_answer": "A 2-hour venous plasma glucose value of 140 mg/dL or greater after a 75g oral glucose load confirms Gestational Diabetes Mellitus.",
+    "gold_keywords": ["dipsi", "75g", "glucose", "140", "gdm", "diabetes"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 6,
+    "category": "gestational_diabetes",
+    "question": "What is the first-line management strategy for a pregnant woman diagnosed with gestational diabetes?",
+    "expected_answer": "Medical Nutrition Therapy (MNT) with carbohydrate counting, balanced caloric distribution, and moderate physical activity for 2 weeks before initiating pharmacotherapy.",
+    "gold_keywords": ["medical nutrition therapy", "diet", "exercise", "carbohydrate", "mnt"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 7,
+    "category": "gestational_diabetes",
+    "question": "When should insulin therapy be initiated if medical nutrition therapy fails to control blood sugars in GDM?",
+    "expected_answer": "Insulin is indicated when fasting plasma glucose remains above 95 mg/dL or 2-hour postprandial glucose exceeds 120 mg/dL despite strict dietary management.",
+    "gold_keywords": ["insulin", "fasting", "postprandial", "95", "120", "glucose"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 8,
+    "category": "gestational_diabetes",
+    "question": "What are the common fetal risks associated with uncontrolled gestational diabetes mellitus?",
+    "expected_answer": "Fetal macrosomia, birth trauma, neonatal hypoglycemia, respiratory distress syndrome, and polyhydramnios.",
+    "gold_keywords": ["macrosomia", "hypoglycemia", "fetal", "polyhydramnios", "neonatal"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 9,
+    "category": "hypertension_preeclampsia",
+    "question": "What criteria define preeclampsia in a pregnant woman after 20 weeks of gestation?",
+    "expected_answer": "Systolic blood pressure of 140 mmHg or higher and/or diastolic 90 mmHg or higher on two occasions with significant proteinuria (>300 mg/24h or dipstick 1+).",
+    "gold_keywords": ["preeclampsia", "140", "90", "proteinuria", "blood pressure", "20 weeks"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 10,
+    "category": "hypertension_preeclampsia",
+    "question": "What is the drug of choice for the prevention and treatment of eclamptic seizures in pregnancy?",
+    "expected_answer": "Magnesium sulphate (Pritchard or Zuspan regimen) is the anticonvulsant drug of choice for preventing and treating eclampsia.",
+    "gold_keywords": ["magnesium sulphate", "mgso4", "pritchard", "seizure", "eclampsia", "anticonvulsant"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 11,
+    "category": "hypertension_preeclampsia",
+    "question": "Which antihypertensive medications are considered safe for treating severe hypertension in pregnancy?",
+    "expected_answer": "Labetalol, oral Nifedipine, and Methyldopa are safe and effective first-line antihypertensive agents in pregnancy.",
+    "gold_keywords": ["labetalol", "nifedipine", "methyldopa", "antihypertensive", "hypertension"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 12,
+    "category": "hypertension_preeclampsia",
+    "question": "What are the impending danger signs of severe preeclampsia that require immediate emergency triage?",
+    "expected_answer": "Severe persistent frontal headache, visual disturbances (blurring, scotomata), epigastric or right upper quadrant pain, oliguria, and hyperreflexia.",
+    "gold_keywords": ["headache", "visual", "epigastric", "impending", "danger signs", "blurring"],
+    "difficulty": "emergency"
+  },
+  {
+    "id": 13,
+    "category": "critical_care_obstetrics",
+    "question": "What is the clinical definition of Postpartum Hemorrhage (PPH) following a vaginal birth?",
+    "expected_answer": "Blood loss of 500 mL or more after vaginal delivery, or any amount of bleeding causing hemodynamic instability.",
+    "gold_keywords": ["postpartum hemorrhage", "pph", "500 ml", "blood loss", "bleeding"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 14,
+    "category": "critical_care_obstetrics",
+    "question": "What is the first-line uterotonic drug administered for active management of the third stage of labor (AMTSL)?",
+    "expected_answer": "Oxytocin (10 IU intramuscularly or intravenously) administered immediately after delivery of the baby.",
+    "gold_keywords": ["oxytocin", "uterotonic", "amtsl", "10 iu", "third stage"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 15,
+    "category": "critical_care_obstetrics",
+    "question": "What are the four 'T' causes of postpartum hemorrhage in obstetric emergencies?",
+    "expected_answer": "Tone (uterine atony), Trauma (genital tract lacerations), Tissue (retained placenta or membranes), and Thrombin (coagulopathy).",
+    "gold_keywords": ["tone", "trauma", "tissue", "thrombin", "atony", "pph"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 16,
+    "category": "critical_care_obstetrics",
+    "question": "What initial resuscitation steps must be performed during septic shock in obstetric critical care?",
+    "expected_answer": "High-flow oxygen, aggressive intravenous fluid resuscitation with balanced crystalloids, blood cultures, and broad-spectrum empiric IV antibiotics within one hour.",
+    "gold_keywords": ["septic shock", "fluid resuscitation", "crystalloids", "antibiotics", "oxygen"],
+    "difficulty": "emergency"
+  },
+  {
+    "id": 17,
+    "category": "heart_disease",
+    "question": "Which maternal heart condition carries the highest risk of mortality during pregnancy and is a contraindication to gestation?",
+    "expected_answer": "Severe pulmonary arterial hypertension (including Eisenmenger syndrome), severe aortic stenosis, and vascular Ehlers-Danlos syndrome.",
+    "gold_keywords": ["pulmonary hypertension", "eisenmenger", "mortality", "cardiac", "contraindication"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 18,
+    "category": "heart_disease",
+    "question": "Which oral anticoagulant drug is teratogenic in the first trimester and must be switched to low molecular weight heparin?",
+    "expected_answer": "Warfarin (Coumadin) is teratogenic between 6-12 weeks causing warfarin embryopathy and should be substituted with LMWH or unfractionated heparin.",
+    "gold_keywords": ["warfarin", "teratogenic", "heparin", "lmwh", "anticoagulant", "embryopathy"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 19,
+    "category": "heart_disease",
+    "question": "What hemodynamic changes peak during the second trimester and labor in a woman with heart disease?",
+    "expected_answer": "Cardiac output increases by 40-50%, blood volume expands by up to 50%, and stroke volume rises, peaking immediately postpartum.",
+    "gold_keywords": ["cardiac output", "blood volume", "hemodynamic", "stroke volume", "heart"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 20,
+    "category": "heart_disease",
+    "question": "How should labor be managed in a pregnant woman with NYHA Class II or III mitral stenosis?",
+    "expected_answer": "Left lateral positioning, adequate epidural analgesia, avoidance of tachycardia, oxygen supplementation, and shortening the second stage with operative vaginal delivery.",
+    "gold_keywords": ["mitral stenosis", "epidural", "left lateral", "tachycardia", "second stage"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 21,
+    "category": "thyroid_disorders",
+    "question": "What are the trimester-specific TSH target reference ranges for maternal hypothyroidism?",
+    "expected_answer": "First trimester: 0.1-2.5 mIU/L; Second trimester: 0.2-3.0 mIU/L; Third trimester: 0.3-3.0 mIU/L.",
+    "gold_keywords": ["tsh", "hypothyroidism", "thyroid", "first trimester", "levothyroxine", "miu/l"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 22,
+    "category": "thyroid_disorders",
+    "question": "Why is untreated maternal hypothyroidism dangerous for fetal neurocognitive development?",
+    "expected_answer": "Maternal thyroxine is essential for fetal brain development and neuronal migration in early pregnancy before the fetal thyroid functions.",
+    "gold_keywords": ["fetal brain", "neurocognitive", "thyroxine", "development", "hypothyroidism"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 23,
+    "category": "thyroid_disorders",
+    "question": "What is the preferred antithyroid medication during the first trimester for maternal hyperthyroidism?",
+    "expected_answer": "Propylthiouracil (PTU) is preferred in the first trimester due to lower teratogenic risk compared to Methimazole.",
+    "gold_keywords": ["propylthiouracil", "ptu", "methimazole", "hyperthyroidism", "teratogenic"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 24,
+    "category": "uti_in_pregnancy",
+    "question": "Why must asymptomatic bacteriuria always be screened and treated in pregnant women?",
+    "expected_answer": "Untreated asymptomatic bacteriuria progresses to acute pyelonephritis in up to 30-40% of cases, increasing risks of preterm labor and low birth weight.",
+    "gold_keywords": ["asymptomatic bacteriuria", "pyelonephritis", "preterm labor", "urine culture", "uti"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 25,
+    "category": "uti_in_pregnancy",
+    "question": "Which antibiotics are safe to treat acute cystitis or UTI during the second trimester of pregnancy?",
+    "expected_answer": "Nitrofurantoin, Amoxicillin-clavulanate, and oral cephalosporins (Cephalexin, Cefixime) are safe and effective.",
+    "gold_keywords": ["nitrofurantoin", "cephalexin", "amoxicillin", "cystitis", "antibiotic", "uti"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 26,
+    "category": "uti_in_pregnancy",
+    "question": "What are the hallmark symptoms of acute pyelonephritis requiring hospital admission in a pregnant mother?",
+    "expected_answer": "High fever, chills, flank pain or costovertebral angle tenderness, nausea, vomiting, and urinary urgency/dysuria.",
+    "gold_keywords": ["pyelonephritis", "fever", "flank pain", "costovertebral", "chills", "tenderness"],
+    "difficulty": "emergency"
+  },
+  {
+    "id": 27,
+    "category": "thromboembolic_disease",
+    "question": "Why is pregnancy considered a prothrombotic state for deep vein thrombosis (DVT)?",
+    "expected_answer": "Virchow triad: increase in clotting factors (I, VII, VIII, X), venous stasis from IVC compression by the gravid uterus, and endothelial vascular changes.",
+    "gold_keywords": ["prothrombotic", "virchow", "deep vein thrombosis", "dvt", "clotting factors", "stasis"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 28,
+    "category": "thromboembolic_disease",
+    "question": "What is the anticoagulant of choice for the prevention and treatment of venous thromboembolism (VTE) in pregnancy?",
+    "expected_answer": "Low Molecular Weight Heparin (LMWH, such as Enoxaparin or Dalteparin) is the preferred drug because it does not cross the placenta.",
+    "gold_keywords": ["low molecular weight heparin", "lmwh", "enoxaparin", "placenta", "anticoagulant", "vte"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 29,
+    "category": "thromboembolic_disease",
+    "question": "What clinical signs should prompt suspicion of pulmonary embolism in a pregnant mother?",
+    "expected_answer": "Sudden onset dyspnea, pleuritic chest pain, tachypnea, tachycardia, hemoptysis, and unexplained hypoxemia.",
+    "gold_keywords": ["pulmonary embolism", "dyspnea", "chest pain", "tachypnea", "tachycardia", "hypoxemia"],
+    "difficulty": "emergency"
+  },
+  {
+    "id": 30,
+    "category": "viral_hepatitis",
+    "question": "Which type of hepatitis virus causes severe fulminant hepatic failure with high maternal mortality during the third trimester?",
+    "expected_answer": "Hepatitis E virus (HEV) causes fulminant hepatic failure with maternal mortality approaching 20% in the third trimester.",
+    "gold_keywords": ["hepatitis e", "hev", "fulminant", "hepatic failure", "mortality", "third trimester"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 31,
+    "category": "viral_hepatitis",
+    "question": "What protocol prevents mother-to-child vertical transmission of Hepatitis B virus at birth?",
+    "expected_answer": "Administration of Hepatitis B immunoglobulin (HBIG) and the first dose of Hepatitis B vaccine to the newborn within 12 hours of delivery.",
+    "gold_keywords": ["hepatitis b", "hbig", "immunoglobulin", "vaccine", "vertical transmission", "12 hours"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 32,
+    "category": "tuberculosis",
+    "question": "Is standard first-line antitubercular therapy (ATT) safe for a pregnant mother diagnosed with pulmonary tuberculosis?",
+    "expected_answer": "Yes, standard 4-drug therapy with Isoniazid, Rifampicin, Pyrazinamide, and Ethambutol (HRZE) is safe in pregnancy along with Pyridoxine (Vitamin B6).",
+    "gold_keywords": ["tuberculosis", "att", "isoniazid", "rifampicin", "ethambutol", "pyridoxine"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 33,
+    "category": "tuberculosis",
+    "question": "Which antitubercular medication is strictly contraindicated in pregnancy due to fetal ototoxicity?",
+    "expected_answer": "Streptomycin (an aminoglycoside) is contraindicated because it crosses the placenta and causes permanent fetal vestibular and auditory nerve damage.",
+    "gold_keywords": ["streptomycin", "ototoxicity", "contraindicated", "aminoglycoside", "auditory"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 34,
+    "category": "obesity_in_pregnancy",
+    "question": "What is the recommended total gestational weight gain for a pregnant woman categorized as obese (BMI >= 30 kg/m2)?",
+    "expected_answer": "The recommended weight gain is between 5 to 9 kg (11 to 20 lbs) throughout the entire pregnancy.",
+    "gold_keywords": ["obese", "bmi", "weight gain", "5 to 9 kg", "gestational"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 35,
+    "category": "obesity_in_pregnancy",
+    "question": "What increased maternal and fetal risks are associated with maternal obesity during labor and delivery?",
+    "expected_answer": "Higher rates of gestational diabetes, preeclampsia, failed induction of labor, emergency cesarean section, postpartum hemorrhage, and wound infection.",
+    "gold_keywords": ["obesity", "cesarean", "induction", "wound infection", "preeclampsia", "labor"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 36,
+    "category": "antiphospholipid_syndrome",
+    "question": "What clinical criteria define Antiphospholipid Syndrome (APS) in obstetric history?",
+    "expected_answer": "Three or more consecutive unexplained spontaneous abortions before 10 weeks, unexplained fetal death at >=10 weeks, or premature birth before 34 weeks due to severe preeclampsia.",
+    "gold_keywords": ["antiphospholipid", "aps", "spontaneous abortion", "miscarriage", "fetal death", "recurrent"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 37,
+    "category": "antiphospholipid_syndrome",
+    "question": "What combined pharmacotherapy is standard for pregnant women with obstetric antiphospholipid antibody syndrome?",
+    "expected_answer": "Low-dose aspirin (75-100 mg daily) combined with prophylactic doses of Low Molecular Weight Heparin (LMWH).",
+    "gold_keywords": ["aspirin", "lmwh", "heparin", "low-dose", "antiphospholipid", "prophylactic"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": 38,
+    "category": "fetal_monitoring",
+    "question": "How should a pregnant mother monitor fetal movements and when should she contact a healthcare provider for reduced movements?",
+    "expected_answer": "Monitor daily kicks after 28 weeks; feeling fewer than 10 movements in a 2-hour period during quiet rest requires immediate evaluation.",
+    "gold_keywords": ["fetal movement", "kicks", "10 movements", "2 hours", "reduced", "kick count"],
+    "difficulty": "lifestyle"
+  },
+  {
+    "id": 39,
+    "category": "fetal_monitoring",
+    "question": "What is the normal baseline fetal heart rate (FHR) range on cardiotocography (CTG)?",
+    "expected_answer": "The normal baseline fetal heart rate is between 110 and 160 beats per minute (bpm).",
+    "gold_keywords": ["fetal heart rate", "110", "160", "bpm", "ctg", "baseline"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 40,
+    "category": "prenatal_nutrition",
+    "question": "What is the recommended daily dosage of folic acid supplementation starting before conception to prevent neural tube defects?",
+    "expected_answer": "400 micrograms (0.4 mg) daily for low-risk women, and 5 mg daily for high-risk women (history of previous NTD or diabetes).",
+    "gold_keywords": ["folic acid", "neural tube defects", "400 mcg", "0.4 mg", "5 mg", "conception"],
+    "difficulty": "factual"
+  },
+  {
+    "id": 41,
+    "category": "prenatal_nutrition",
+    "question": "What daily calcium supplementation is advised by WHO for pregnant women living in low dietary calcium intake areas?",
+    "expected_answer": "1.5 to 2.0 grams of elemental calcium daily divided into three doses, taken separately from iron supplements.",
+    "gold_keywords": ["calcium", "supplementation", "elemental calcium", "grams", "who"],
+    "difficulty": "lifestyle"
+  },
+  {
+    "id": 42,
+    "category": "emergency_triage",
+    "question": "If a pregnant mother reports sudden painless bright red vaginal bleeding in the third trimester, what must be suspected?",
+    "expected_answer": "Placenta previa must be suspected; digital vaginal examination is strictly contraindicated until ultrasound rules it out.",
+    "gold_keywords": ["placenta previa", "vaginal bleeding", "painless", "bright red", "digital examination", "third trimester"],
+    "difficulty": "emergency"
+  },
+  {
+    "id": 43,
+    "category": "emergency_triage",
+    "question": "What are the clinical hallmarks of abruptio placentae requiring immediate hospital admission?",
+    "expected_answer": "Painful dark vaginal bleeding, persistent abdominal or back pain, uterine tenderness or rigidity (woody uterus), and fetal distress.",
+    "gold_keywords": ["abruptio placentae", "dark bleeding", "painful", "uterine tenderness", "woody uterus", "abruption"],
+    "difficulty": "emergency"
+  },
+  {
+    "id": 44,
+    "category": "emergency_triage",
+    "question": "What signs indicate premature rupture of membranes (PROM) and what is the key risk to mother and baby?",
+    "expected_answer": "Sudden gush or persistent leakage of clear amniotic fluid before labor begins; the primary danger is intrauterine infection (chorioamnionitis).",
+    "gold_keywords": ["premature rupture of membranes", "prom", "amniotic fluid", "leakage", "chorioamnionitis", "infection"],
+    "difficulty": "emergency"
+  },
+  {
+    "id": 45,
+    "category": "emergency_triage",
+    "question": "What immediate action should be taken if a mother experiences sudden severe breathlessness and chest pain during labor?",
+    "expected_answer": "Urgent maternal resuscitation, oxygenation, left lateral tilt, immediate medical alert for suspected amniotic fluid embolism or pulmonary embolism.",
+    "gold_keywords": ["breathlessness", "amniotic fluid embolism", "pulmonary embolism", "oxygenation", "resuscitation"],
+    "difficulty": "emergency"
+  },
+  {
+    "id": 46,
+    "category": "lifestyle_care",
+    "question": "What sleeping posture is recommended for pregnant women in the late second and third trimesters?",
+    "expected_answer": "Sleeping on the left side (left lateral position) to avoid inferior vena cava (IVC) compression and optimize uteroplacental blood flow.",
+    "gold_keywords": ["left lateral", "sleeping", "side", "inferior vena cava", "ivc", "blood flow"],
+    "difficulty": "lifestyle"
+  },
+  {
+    "id": 47,
+    "category": "lifestyle_care",
+    "question": "What safe physical exercises are recommended for healthy pregnant women without obstetric complications?",
+    "expected_answer": "Brisk walking, stationary cycling, prenatal yoga, and pelvic floor exercises (Kegels) for at least 150 minutes per week.",
+    "gold_keywords": ["exercise", "walking", "yoga", "pelvic floor", "kegels", "minutes"],
+    "difficulty": "lifestyle"
+  },
+  {
+    "id": 48,
+    "category": "lifestyle_care",
+    "question": "How should common morning sickness and nausea in the first trimester be managed conservatively?",
+    "expected_answer": "Small, frequent bland meals, dry crackers before rising, staying hydrated between meals, and Vitamin B6 (pyridoxine) supplementation.",
+    "gold_keywords": ["morning sickness", "nausea", "frequent meals", "crackers", "pyridoxine", "vitamin b6"],
+    "difficulty": "lifestyle"
+  },
+  {
+    "id": 49,
+    "category": "emergency_triage",
+    "question": "What symptoms in pregnancy indicate HELLP syndrome, a severe complication of preeclampsia?",
+    "expected_answer": "Hemolysis, Elevated Liver enzymes, and Low Platelets, presenting with severe right upper quadrant pain, nausea, malaise, and jaundice.",
+    "gold_keywords": ["hellp", "hemolysis", "liver enzymes", "low platelets", "epigastric", "preeclampsia"],
+    "difficulty": "emergency"
+  },
+  {
+    "id": 50,
+    "category": "fetal_monitoring",
+    "question": "What gestational age marks the transition to term pregnancy when delivery is considered safe from prematurity?",
+    "expected_answer": "37 completed weeks of gestation marks term pregnancy; births between 37 and 42 weeks are term deliveries.",
+    "gold_keywords": ["37 weeks", "term", "gestation", "prematurity", "delivery"],
+    "difficulty": "factual"
+  }
+]

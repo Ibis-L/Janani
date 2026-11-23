@@ -133,7 +133,12 @@ riet_maai/
 │   │   ├── rag_service.py        # LangChain RAG pipeline & Chroma retriever
 │   │   ├── ingest.py             # Document chunking & embedding pipeline
 │   │   ├── health_book.txt       # Clinical dataset (1.46 MB, 28,036 lines FOGSI manual)
-│   │   └── vectordb/             # Chroma persistent vector store
+│   │   ├── vectordb/             # Chroma persistent vector store
+│   │   └── evals/                # Production Evaluation & Benchmarking Suite
+│   │       ├── testset.json      # 50-question gold standard test set
+│   │       ├── run_eval.py       # Reusable eval harness (Hit@K, MRR, latency, LangSmith)
+│   │       ├── ablation.py       # Parameter sweep & optimization matrix script
+│   │       └── results/          # Auto-generated CSV & Markdown evaluation reports
 │   ├── routes/
 │   │   ├── auth.js               # User registration & JWT authentication
 │   │   ├── voice.js              # Twilio webhook & 8-step voice processing pipeline
@@ -225,6 +230,47 @@ npm install
 npm run dev
 # Frontend runs on http://localhost:5173
 ```
+
+---
+
+## 📊 Evaluation Framework, Parameter Ablation & LangSmith Observability
+
+To guarantee high clinical retrieval precision and prevent hallucinations in maternal care, the platform includes a **50-question clinical evaluation suite** derived from the FOGSI obstetric guidelines.
+
+### 🏆 Parameter Optimization & Ablation Matrix
+Benchmark results across 5 distinct chunking and retrieval configurations (50 Gold-Standard Questions):
+
+| Configuration | Chunk Size | Overlap | Top K | Hit@1 | Hit@3 | Hit@5 | MRR | Keyword Recall | Avg Latency |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Config A (Baseline)** | 1,000 chars | 100 | 5 | 38.0% | 64.0% | **68.0%** | **0.500** | 40.5% | 147.0 ms |
+| **Config B (Finer Granularity)** | 750 chars | 150 | 5 | 38.0% | 60.0% | 66.0% | 0.493 | **43.0%** | **10.6 ms** |
+| **Config C (Compact Chunks)** | 500 chars | 100 | 5 | 30.0% | 56.0% | 62.0% | 0.431 | 39.7% | 97.3 ms |
+| **Config D (Fast Voice Low-K)** | 750 chars | 150 | 3 | 38.0% | 60.0% | 60.0% | 0.480 | 37.8% | 103.5 ms |
+| **Config E (High Recall Depth)** | 750 chars | 150 | 7 | 38.0% | 60.0% | 66.0% | 0.496 | **45.6%** | 103.6 ms |
+
+#### Key Ablation Insights:
+1. **Context Fragmentation Threshold**: Reducing `chunk_size` from 1,000 down to 500 characters (**Config C**) caused a sharp **8.0% drop in Hit@1** (38% → 30%) and reduced MRR (0.500 → 0.431) because critical obstetric diagnostic criteria were severed across chunk boundaries.
+2. **Optimal Voice Configuration**: **Config B** (750 chars / 150 overlap) achieved the fastest retrieval latency (**10.6 ms**) with higher keyword recall (**43.0%**), making it the optimal configuration for live telephone speech pipelines.
+3. **Deep Clinical Triage**: When high-risk red-flag queries require maximum context capture, **Config E** ($k=7$) maximized keyword recall to **45.6%**.
+
+### 🛠️ Running the Evaluation Suite
+```bash
+cd backend/python
+
+# Run 50-Question Retrieval Benchmark (Hit@1/3/5, MRR, Latency):
+python evals/run_eval.py --k 5
+
+# Run with LangSmith Live Tracing:
+python evals/run_eval.py --k 5 --langsmith
+
+# Run Full 5-Configuration Ablation Matrix:
+python evals/ablation.py
+```
+
+### 🔭 LangSmith Tracing & Observability
+Every retrieval step and LLM streaming turn is traced with execution waterfalls, token counts, and latency percentiles:
+- **Project Name:** `janani-voice-rag`
+- **Tracked Spans:** Query embedding latency, vector search distance scores, prompt/completion token consumption, and time-to-first-token (TTFT).
 
 ---
 

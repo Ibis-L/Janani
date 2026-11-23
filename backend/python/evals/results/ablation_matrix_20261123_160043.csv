@@ -1,0 +1,6 @@
+Configuration,Chunk Size,Overlap,Top K,Hit@1 (%),Hit@3 (%),Hit@5 (%),MRR,Keyword Recall (%),Latency (ms)
+Config A (Baseline),1000,100,5,38.0,64.0,68.0,0.5,40.5,147.0
+Config B (Finer Granularity),750,150,5,38.0,60.0,66.0,0.493,43.0,10.6
+Config C (Compact Chunks),500,100,5,30.0,56.0,62.0,0.431,39.7,97.3
+Config D (Fast Voice Low-K),750,150,3,38.0,60.0,60.0,0.48,37.8,103.5
+Config E (High Recall Depth),750,150,7,38.0,60.0,66.0,0.496,45.6,103.6
